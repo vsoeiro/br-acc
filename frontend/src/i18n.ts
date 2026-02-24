@@ -11,24 +11,53 @@ const resources = {
           "Dados de registros públicos. Não constitui acusação.",
       },
       landing: {
-        hero: "Plataforma de inteligência em dados públicos brasileiros",
-        cta: "Acessar plataforma",
-        lastUpdated: "Dados atualizados em: {{date}}",
+        hero: "Siga o dinheiro público",
+        heroSubtitle:
+          "87 milhões de conexões entre empresas, políticos e contratos. 13 fontes governamentais. Dados abertos.",
+        badge: "ICARUS · Dados abertos",
+        cta: "Explorar o grafo",
         stats: {
           entities: "entidades",
           connections: "conexões",
           dataSources: "fontes de dados",
         },
         features: {
-          graph: "Análise de Grafo",
-          graphDesc: "Mapeie conexões entre 87M de entidades em registros públicos",
-          patterns: "Detecção de Padrões",
-          patternsDesc: "8 padrões automatizados de análise de dados",
-          investigations: "Área de Investigação",
-          investigationsDesc: "Análise colaborativa com anotações e etiquetas",
+          sectionLabel: "Capacidades",
+          sectionHeading: "O que o ICARUS revela",
+          graph: "Mapeie qualquer conexão",
+          graphDesc:
+            "Navegue por 87 milhões de entidades — empresas, pessoas, contratos, doações, sanções — em um grafo interativo.",
+          patterns: "Detecte padrões",
+          patternsDesc:
+            "8 algoritmos cruzam dados de 13 fontes para encontrar padrões em contratos, doações e sanções.",
+          investigations: "Investigue em profundidade",
+          investigationsDesc:
+            "Monte dossiês com anotações, etiquetas e exportação. Atribuição de fonte em cada dado.",
+        },
+        howItWorks: {
+          sectionLabel: "Como funciona",
+          sectionHeading: "Da fonte ao grafo",
+          step1: "Coleta",
+          step1Desc:
+            "13 fontes governamentais atualizadas mensalmente — de CNPJ a IBAMA, de TSE a PGFN.",
+          step2: "Cruzamento",
+          step2Desc:
+            "Resolução de entidades conecta registros entre fontes. 53 milhões de relações mapeadas.",
+          step3: "Análise",
+          step3Desc:
+            "Explore conexões, detecte padrões e exporte relatórios com atribuição de fonte.",
+        },
+        trust: {
+          openSourceValue: "AGPL-3.0",
+          openSource: "Código aberto",
+          neutralValue: "100%",
+          neutral: "Dados neutros",
+          auditableValue: "13",
+          auditable: "Fontes públicas",
         },
         sources: {
-          title: "Fontes de Dados",
+          sectionLabel: "13 fontes",
+          sectionHeading: "De onde vêm os dados",
           cnpj: "Cadastro de empresas da Receita Federal",
           tse: "Doações eleitorais do TSE",
           transparencia: "Contratos do Portal da Transparência",
@@ -44,13 +73,11 @@ const resources = {
           inep: "Censo educacional INEP",
         },
         footer: {
-          methodology: "Metodologia",
+          brand: "ICARUS v1.0",
           license: "AGPL-3.0",
+          platform: "Plataforma",
+          methodology: "Metodologia",
         },
-      },
-      home: {
-        tagline: "Mapeamento de conexões em dados públicos brasileiros",
-        cta: "Iniciar busca",
       },
       dashboard: {
         welcome: "Painel",
@@ -139,6 +166,7 @@ const resources = {
         MANTEDORA_DE: "Mantenedora de",
         BENEFICIOU: "Beneficiou",
         GEROU_CONVENIO: "Gerou convênio",
+        SAME_AS: "Mesmo indivíduo",
       },
       graph: {
         depth: "Profundidade",
@@ -319,6 +347,8 @@ const resources = {
         delete: "Excluir",
         edit: "Editar",
         back: "Voltar",
+        error: "Erro ao carregar",
+        retry: "Tentar novamente",
       },
       error: {
         title: "ICARUS",
@@ -336,24 +366,53 @@ const resources = {
           "Data patterns from public records. Not accusations.",
       },
       landing: {
-        hero: "Brazilian public data intelligence platform",
-        cta: "Access platform",
-        lastUpdated: "Data updated: {{date}}",
+        hero: "Follow the public money",
+        heroSubtitle:
+          "87 million connections between companies, politicians, and contracts. 13 government sources. Open data.",
+        badge: "ICARUS · Open data",
+        cta: "Explore the graph",
         stats: {
           entities: "entities",
           connections: "connections",
           dataSources: "data sources",
         },
         features: {
-          graph: "Graph Analysis",
-          graphDesc: "Map connections across 87M entities in public records",
-          patterns: "Pattern Detection",
-          patternsDesc: "8 automated data analysis patterns",
-          investigations: "Investigation Workspace",
-          investigationsDesc: "Collaborative analysis with annotations and tags",
+          sectionLabel: "Capabilities",
+          sectionHeading: "What ICARUS reveals",
+          graph: "Map any connection",
+          graphDesc:
+            "Navigate 87 million entities — companies, people, contracts, donations, sanctions — in an interactive graph.",
+          patterns: "Detect patterns",
+          patternsDesc:
+            "8 algorithms cross-reference 13 data sources to find patterns in contracts, donations, and sanctions.",
+          investigations: "Investigate in depth",
+          investigationsDesc:
+            "Build dossiers with annotations, tags, and exports. Source attribution on every data point.",
+        },
+        howItWorks: {
+          sectionLabel: "How it works",
+          sectionHeading: "From source to graph",
+          step1: "Collect",
+          step1Desc:
+            "13 government sources updated monthly — from CNPJ to IBAMA, from TSE to PGFN.",
+          step2: "Cross-reference",
+          step2Desc:
+            "Entity resolution connects records across sources. 53 million relationships mapped.",
+          step3: "Analyze",
+          step3Desc:
+            "Explore connections, detect patterns, and export reports with source attribution.",
+        },
+        trust: {
+          openSourceValue: "AGPL-3.0",
+          openSource: "Open source",
+          neutralValue: "100%",
+          neutral: "Neutral data",
+          auditableValue: "13",
+          auditable: "Public sources",
         },
         sources: {
-          title: "Data Sources",
+          sectionLabel: "13 sources",
+          sectionHeading: "Where the data comes from",
           cnpj: "Federal Revenue company registry",
           tse: "Electoral Court donation records",
           transparencia: "Government transparency portal contracts",
@@ -369,13 +428,11 @@ const resources = {
           inep: "INEP education census",
         },
         footer: {
-          methodology: "Methodology",
+          brand: "ICARUS v1.0",
           license: "AGPL-3.0",
+          platform: "Platform",
+          methodology: "Methodology",
         },
-      },
-      home: {
-        tagline: "Mapping connections in Brazilian public data",
-        cta: "Start searching",
       },
       dashboard: {
         welcome: "Dashboard",
@@ -464,6 +521,7 @@ const resources = {
         MANTEDORA_DE: "Maintains",
         BENEFICIOU: "Benefited",
         GEROU_CONVENIO: "Generated agreement",
+        SAME_AS: "Same individual",
       },
       graph: {
         depth: "Depth",
@@ -644,6 +702,8 @@ const resources = {
         delete: "Delete",
         edit: "Edit",
         back: "Back",
+        error: "Failed to load",
+        retry: "Retry",
       },
       error: {
         title: "ICARUS",

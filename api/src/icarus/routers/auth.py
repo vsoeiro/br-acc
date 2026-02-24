@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from neo4j import AsyncSession
+from neo4j.exceptions import ConstraintError
 from starlette.requests import Request
 
 from icarus.dependencies import CurrentUser, get_session
@@ -27,6 +28,10 @@ async def register(
     except ValueError as exc:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="Invalid invite code"
+        ) from exc
+    except ConstraintError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="Email already registered"
         ) from exc
 
 

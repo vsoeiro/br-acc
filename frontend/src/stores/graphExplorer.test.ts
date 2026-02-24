@@ -31,6 +31,7 @@ const INITIAL_REL_TYPES = [
   "MANTEDORA_DE",
   "BENEFICIOU",
   "GEROU_CONVENIO",
+  "SAME_AS",
 ];
 
 describe("useGraphExplorerStore", () => {
@@ -81,7 +82,7 @@ describe("useGraphExplorerStore", () => {
     useGraphExplorerStore.getState().toggleRelType("DOOU");
     const rels = useGraphExplorerStore.getState().enabledRelTypes;
     expect(rels.has("DOOU")).toBe(false);
-    expect(rels.size).toBe(12);
+    expect(rels.size).toBe(13);
   });
 
   it("toggleRelType adds a new relationship type", () => {
@@ -89,7 +90,7 @@ describe("useGraphExplorerStore", () => {
     useGraphExplorerStore.getState().toggleRelType("DOOU");
     const rels = useGraphExplorerStore.getState().enabledRelTypes;
     expect(rels.has("DOOU")).toBe(true);
-    expect(rels.size).toBe(13);
+    expect(rels.size).toBe(14);
   });
 
   it("selectNode sets a single node", () => {

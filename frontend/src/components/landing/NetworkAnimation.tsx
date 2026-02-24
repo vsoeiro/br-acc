@@ -58,7 +58,7 @@ export function NetworkAnimation() {
             key={`n${i}`}
             cx={node.cx}
             cy={node.cy}
-            r="4"
+            r="6"
             fill={node.color}
             className={styles.node}
             style={{ animationDelay: `${node.delay}s` }}

@@ -150,11 +150,12 @@ export function EntityAnalysis() {
   // Save to recent analyses
   useEffect(() => {
     if (entity && exposure) {
-      const name =
-        (entity.properties.nome as string | null) ??
-        (entity.properties.razao_social as string | null) ??
-        (entity.properties.name as string | null) ??
+      const rawName =
+        entity.properties.nome ??
+        entity.properties.razao_social ??
+        entity.properties.name ??
         entity.id;
+      const name = typeof rawName === "string" ? rawName : String(rawName);
       saveRecentAnalysis({
         entityId: entity.id,
         name,

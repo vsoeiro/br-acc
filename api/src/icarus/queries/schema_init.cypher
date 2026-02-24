@@ -1,7 +1,7 @@
 // ICARUS Neo4j Schema — Constraints and Indexes
 // Applied on database initialization
 
-// -- Uniqueness Constraints --
+// ── Uniqueness Constraints ──────────────────────────────
 CREATE CONSTRAINT person_cpf_unique IF NOT EXISTS
   FOR (p:Person) REQUIRE p.cpf IS UNIQUE;
 
@@ -26,7 +26,22 @@ CREATE CONSTRAINT amendment_id_unique IF NOT EXISTS
 CREATE CONSTRAINT health_cnes_code_unique IF NOT EXISTS
   FOR (h:Health) REQUIRE h.cnes_code IS UNIQUE;
 
-// -- Indexes --
+CREATE CONSTRAINT finance_id_unique IF NOT EXISTS
+  FOR (f:Finance) REQUIRE f.finance_id IS UNIQUE;
+
+CREATE CONSTRAINT embargo_id_unique IF NOT EXISTS
+  FOR (e:Embargo) REQUIRE e.embargo_id IS UNIQUE;
+
+CREATE CONSTRAINT education_school_id_unique IF NOT EXISTS
+  FOR (e:Education) REQUIRE e.school_id IS UNIQUE;
+
+CREATE CONSTRAINT convenio_id_unique IF NOT EXISTS
+  FOR (c:Convenio) REQUIRE c.convenio_id IS UNIQUE;
+
+CREATE CONSTRAINT laborstats_id_unique IF NOT EXISTS
+  FOR (l:LaborStats) REQUIRE l.stats_id IS UNIQUE;
+
+// ── Indexes ─────────────────────────────────────────────
 CREATE INDEX person_name IF NOT EXISTS
   FOR (p:Person) ON (p.name);
 
@@ -72,6 +87,27 @@ CREATE INDEX sanction_date_start IF NOT EXISTS
 CREATE INDEX amendment_date IF NOT EXISTS
   FOR (a:Amendment) ON (a.date);
 
+// ── Finance Indexes ───────────────────────────────────
+CREATE INDEX finance_type IF NOT EXISTS
+  FOR (f:Finance) ON (f.type);
+
+CREATE INDEX finance_value IF NOT EXISTS
+  FOR (f:Finance) ON (f.value);
+
+CREATE INDEX finance_date IF NOT EXISTS
+  FOR (f:Finance) ON (f.date);
+
+CREATE INDEX finance_source IF NOT EXISTS
+  FOR (f:Finance) ON (f.source);
+
+// ── Embargo Indexes ───────────────────────────────────
+CREATE INDEX embargo_uf IF NOT EXISTS
+  FOR (e:Embargo) ON (e.uf);
+
+CREATE INDEX embargo_biome IF NOT EXISTS
+  FOR (e:Embargo) ON (e.biome);
+
+// ── Health Indexes ────────────────────────────────────
 CREATE INDEX health_name IF NOT EXISTS
   FOR (h:Health) ON (h.name);
 
@@ -81,11 +117,23 @@ CREATE INDEX health_uf IF NOT EXISTS
 CREATE INDEX health_municipio IF NOT EXISTS
   FOR (h:Health) ON (h.municipio);
 
-// -- Fulltext Search Index --
+// ── Education Indexes ───────────────────────────────────
+CREATE INDEX education_name IF NOT EXISTS
+  FOR (e:Education) ON (e.name);
+
+// ── Convenio Indexes ────────────────────────────────────
+CREATE INDEX convenio_date IF NOT EXISTS
+  FOR (c:Convenio) ON (c.date);
+
+// ── LaborStats Indexes ──────────────────────────────────
+CREATE INDEX laborstats_uf IF NOT EXISTS
+  FOR (l:LaborStats) ON (l.uf);
+
+// ── Fulltext Search Index ───────────────────────────────
 CREATE FULLTEXT INDEX entity_search IF NOT EXISTS
   FOR (n:Person|Company|Health)
   ON EACH [n.name, n.razao_social, n.cpf, n.cnpj, n.cnes_code];
 
-// -- User Constraints --
+// ── User Constraints ────────────────────────────────────
 CREATE CONSTRAINT user_email_unique IF NOT EXISTS
   FOR (u:User) REQUIRE u.email IS UNIQUE;

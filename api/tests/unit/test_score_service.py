@@ -2,6 +2,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
+from icarus.services.neo4j_service import CypherLoader
 from icarus.services.score_service import (
     _conn_percentile,
     _fin_percentile,
@@ -159,3 +160,73 @@ async def test_compute_exposure_source_attribution() -> None:
     # Each factor should have source attribution
     for factor in response.factors:
         assert len(factor.sources) > 0
+
+
+def test_entity_score_query_traverses_same_as() -> None:
+    """Verify entity_score.cypher aggregates across SAME_AS equivalents."""
+    CypherLoader.clear_cache()
+    cypher = CypherLoader.load("entity_score")
+    assert "SAME_AS" in cypher
+    # Ensures the query collects equivalent nodes
+    assert "equivs" in cypher
+    # Ensures SAME_AS links are excluded from connection counts
+    assert "type(r) <> 'SAME_AS'" in cypher
+
+
+def test_entity_timeline_query_traverses_same_as() -> None:
+    """Verify entity_timeline.cypher includes events from SAME_AS equivalents."""
+    CypherLoader.clear_cache()
+    cypher = CypherLoader.load("entity_timeline")
+    assert "SAME_AS" in cypher
+    assert "equivs" in cypher
+    assert "type(r) <> 'SAME_AS'" in cypher
+
+
+def test_graph_expand_query_includes_same_as() -> None:
+    """Verify graph_expand.cypher traverses SAME_AS relationships."""
+    CypherLoader.clear_cache()
+    cypher = CypherLoader.load("graph_expand")
+    assert "SAME_AS" in cypher
+
+
+def test_entity_connections_query_includes_same_as() -> None:
+    """Verify entity_connections.cypher traverses SAME_AS relationships."""
+    CypherLoader.clear_cache()
+    cypher = CypherLoader.load("entity_connections")
+    assert "SAME_AS" in cypher
+
+
+@pytest.mark.anyio
+async def test_compute_exposure_aggregated_same_as_data() -> None:
+    """Score service handles aggregated data from SAME_AS equivalent nodes."""
+    session = AsyncMock()
+
+    # Simulates aggregated data: higher connection count and multiple sources
+    # from SAME_AS traversal across TSE candidate + CNPJ person + author nodes
+    score_record = MagicMock()
+    score_record.__getitem__ = lambda self, key: {
+        "entity_id": "4:abc:10",
+        "entity_labels": ["Person"],
+        "connection_count": 85,
+        "source_count": 5,
+        "financial_volume": 2_500_000.0,
+        "cnae_principal": None,
+        "role": "deputado",
+    }[key]
+
+    async def mock_run(cypher: str, params: dict, timeout: float = 15):  # type: ignore[no-untyped-def]
+        result = AsyncMock()
+        result.single = AsyncMock(return_value=score_record)
+        return result
+
+    session.run = mock_run
+
+    response = await compute_exposure(session, "4:abc:10")
+    assert response.entity_id == "4:abc:10"
+    assert response.exposure_index > 0.0
+    # High connection count from aggregated SAME_AS data → high percentile
+    conn_factor = next(f for f in response.factors if f.name == "connections")
+    assert conn_factor.percentile >= 90.0
+    # Multiple sources from cross-pipeline traversal
+    src_factor = next(f for f in response.factors if f.name == "sources")
+    assert src_factor.percentile == 100.0

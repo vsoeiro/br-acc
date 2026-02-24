@@ -31,20 +31,18 @@ function EntityHeaderInner({
 }: EntityHeaderProps) {
   const { t } = useTranslation();
 
-  const name =
-    (entity.properties.nome as string | null) ??
-    (entity.properties.razao_social as string | null) ??
-    (entity.properties.name as string | null) ??
+  const rawName =
+    entity.properties.nome ??
+    entity.properties.razao_social ??
+    entity.properties.name ??
     entity.id;
+  const name = typeof rawName === "string" ? rawName : String(rawName);
 
   const typeColor = entityColors[entity.type] ?? "var(--text-muted)";
 
-  const connectionCount = exposure?.factors.reduce(
-    (sum, f) => sum + f.value,
-    0,
-  );
-  const sourceCount = exposure?.sources.length ?? entity.sources.length;
-  const totalMoney = exposure?.factors.find((f) => f.name === "money_involved");
+  const connectionCount = exposure?.factors.find((f) => f.name === "connections")?.value;
+  const sourceCount = exposure?.factors.find((f) => f.name === "sources")?.value ?? entity.sources.length;
+  const totalMoney = exposure?.factors.find((f) => f.name === "financial");
 
   return (
     <header className={styles.header}>

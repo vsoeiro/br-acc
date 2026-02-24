@@ -23,6 +23,24 @@ CREATE CONSTRAINT investigation_id_unique IF NOT EXISTS
 CREATE CONSTRAINT amendment_id_unique IF NOT EXISTS
   FOR (a:Amendment) REQUIRE a.amendment_id IS UNIQUE;
 
+CREATE CONSTRAINT health_cnes_code_unique IF NOT EXISTS
+  FOR (h:Health) REQUIRE h.cnes_code IS UNIQUE;
+
+CREATE CONSTRAINT finance_id_unique IF NOT EXISTS
+  FOR (f:Finance) REQUIRE f.finance_id IS UNIQUE;
+
+CREATE CONSTRAINT embargo_id_unique IF NOT EXISTS
+  FOR (e:Embargo) REQUIRE e.embargo_id IS UNIQUE;
+
+CREATE CONSTRAINT education_school_id_unique IF NOT EXISTS
+  FOR (e:Education) REQUIRE e.school_id IS UNIQUE;
+
+CREATE CONSTRAINT convenio_id_unique IF NOT EXISTS
+  FOR (c:Convenio) REQUIRE c.convenio_id IS UNIQUE;
+
+CREATE CONSTRAINT laborstats_id_unique IF NOT EXISTS
+  FOR (l:LaborStats) REQUIRE l.stats_id IS UNIQUE;
+
 // ── Indexes ─────────────────────────────────────────────
 CREATE INDEX person_name IF NOT EXISTS
   FOR (p:Person) ON (p.name);
@@ -63,10 +81,13 @@ CREATE INDEX contract_contracting_org IF NOT EXISTS
 CREATE INDEX contract_date IF NOT EXISTS
   FOR (c:Contract) ON (c.date);
 
-// ── Finance Indexes ───────────────────────────────────
-CREATE INDEX finance_id_idx IF NOT EXISTS
-  FOR (f:Finance) ON (f.finance_id);
+CREATE INDEX sanction_date_start IF NOT EXISTS
+  FOR (s:Sanction) ON (s.date_start);
 
+CREATE INDEX amendment_date IF NOT EXISTS
+  FOR (a:Amendment) ON (a.date);
+
+// ── Finance Indexes ───────────────────────────────────
 CREATE INDEX finance_type IF NOT EXISTS
   FOR (f:Finance) ON (f.type);
 
@@ -80,37 +101,21 @@ CREATE INDEX finance_source IF NOT EXISTS
   FOR (f:Finance) ON (f.source);
 
 // ── Embargo Indexes ───────────────────────────────────
-CREATE INDEX embargo_id IF NOT EXISTS
-  FOR (e:Embargo) ON (e.embargo_id);
-
 CREATE INDEX embargo_uf IF NOT EXISTS
   FOR (e:Embargo) ON (e.uf);
 
 CREATE INDEX embargo_biome IF NOT EXISTS
   FOR (e:Embargo) ON (e.biome);
 
-// ── Sanction Date Index ───────────────────────────────
-CREATE INDEX sanction_date_start IF NOT EXISTS
-  FOR (s:Sanction) ON (s.date_start);
+// ── Health Indexes ────────────────────────────────────
+CREATE INDEX health_name IF NOT EXISTS
+  FOR (h:Health) ON (h.name);
 
-CREATE INDEX amendment_date IF NOT EXISTS
-  FOR (a:Amendment) ON (a.date);
+CREATE INDEX health_uf IF NOT EXISTS
+  FOR (h:Health) ON (h.uf);
 
-// ── New Node Constraints ────────────────────────────────
-CREATE CONSTRAINT finance_id_unique IF NOT EXISTS
-  FOR (f:Finance) REQUIRE f.finance_id IS UNIQUE;
-
-CREATE CONSTRAINT embargo_id_unique IF NOT EXISTS
-  FOR (e:Embargo) REQUIRE e.embargo_id IS UNIQUE;
-
-CREATE CONSTRAINT education_school_id_unique IF NOT EXISTS
-  FOR (e:Education) REQUIRE e.school_id IS UNIQUE;
-
-CREATE CONSTRAINT convenio_id_unique IF NOT EXISTS
-  FOR (c:Convenio) REQUIRE c.convenio_id IS UNIQUE;
-
-CREATE CONSTRAINT laborstats_id_unique IF NOT EXISTS
-  FOR (l:LaborStats) REQUIRE l.stats_id IS UNIQUE;
+CREATE INDEX health_municipio IF NOT EXISTS
+  FOR (h:Health) ON (h.municipio);
 
 // ── Education Indexes ───────────────────────────────────
 CREATE INDEX education_name IF NOT EXISTS
@@ -126,8 +131,8 @@ CREATE INDEX laborstats_uf IF NOT EXISTS
 
 // ── Fulltext Search Index ───────────────────────────────
 CREATE FULLTEXT INDEX entity_search IF NOT EXISTS
-  FOR (n:Person|Company)
-  ON EACH [n.name, n.razao_social, n.cpf, n.cnpj];
+  FOR (n:Person|Company|Health)
+  ON EACH [n.name, n.razao_social, n.cpf, n.cnpj, n.cnes_code];
 
 // ── User Constraints ────────────────────────────────────
 CREATE CONSTRAINT user_email_unique IF NOT EXISTS

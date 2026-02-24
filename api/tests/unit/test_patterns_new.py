@@ -68,7 +68,8 @@ async def test_embargoed_receiving_returns_results() -> None:
     mock_record = MagicMock()
     mock_record.__iter__ = lambda self: iter([
         "company_name", "company_cnpj", "company_id",
-        "embargo_description", "embargo_uf",
+        "embargo_description", "embargo_date", "embargo_biome",
+        "embargo_uf",
         "contract_count", "loan_count",
         "total_contract_value", "total_loan_value", "pattern_id",
     ])
@@ -76,7 +77,9 @@ async def test_embargoed_receiving_returns_results() -> None:
         "company_name": "Embargo Corp",
         "company_cnpj": "98765432000100",
         "company_id": "4:abc:456",
-        "embargo_description": "Desmatamento",
+        "embargo_description": "Desmatamento ilegal",
+        "embargo_date": "2023-01-15",
+        "embargo_biome": "Amazonia",
         "embargo_uf": "PA",
         "contract_count": 5,
         "loan_count": 1,

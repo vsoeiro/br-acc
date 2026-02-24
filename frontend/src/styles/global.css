@@ -118,8 +118,11 @@
   --space-2xl: 48px;
   --space-3xl: 64px;
   --space-4xl: 96px;
+  --space-5xl: 128px;
+  --space-6xl: 160px;
 
   /* === Typography === */
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
   --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "IBM Plex Mono", "Menlo", "Consolas", monospace;
   --font-size-2xs: 0.625rem;
@@ -132,9 +135,24 @@
   --font-size-3xl: 3rem;
   --font-size-4xl: 4rem;
 
-  /* === Radius — intelligence aesthetic: 2-4px max === */
+  /* === Radius === */
   --radius-sm: 2px;
   --radius-md: 4px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* === Glass === */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(255, 255, 255, 0.2);
+  --gradient-heading: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+
+  /* === Orbs === */
+  --orb-accent: rgba(255, 154, 60, 0.35);
+  --orb-cyan: rgba(0, 229, 195, 0.18);
+  --orb-blue: rgba(59, 130, 246, 0.15);
 
   /* === Transitions === */
   --transition-fast: 150ms ease-out;
@@ -145,6 +163,13 @@
 
   /* === Hover === */
   --bg-hover: rgba(255, 255, 255, 0.03);
+
+  /* === Military intelligence palette === */
+  --mil-green: #00ff41;
+  --mil-green-dim: rgba(0, 255, 65, 0.08);
+  --mil-amber: #ffb000;
+  --mil-amber-dim: rgba(255, 176, 0, 0.08);
+  --font-size-5xl: 5rem;
 
   /* === Z-index scale === */
   --z-dropdown: 100;
@@ -180,6 +205,19 @@
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
   --shadow-glow: 0 0 20px rgba(217, 119, 6, 0.05);
   --bg-hover: rgba(0, 0, 0, 0.04);
+  --glass-bg: rgba(0, 0, 0, 0.03);
+  --glass-bg-hover: rgba(0, 0, 0, 0.06);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-hover: rgba(0, 0, 0, 0.15);
+  --gradient-heading: linear-gradient(180deg, #1a2820 0%, rgba(26, 40, 32, 0.7) 100%);
+  --orb-accent: rgba(217, 119, 6, 0.15);
+  --orb-cyan: rgba(8, 145, 178, 0.1);
+  --orb-blue: rgba(59, 130, 246, 0.1);
+  --mil-green: #15803d;
+  --mil-green-dim: rgba(21, 128, 61, 0.08);
+  --mil-amber: #b45309;
+  --mil-amber-dim: rgba(180, 83, 9, 0.08);
+  --font-size-5xl: 5rem;
 }
 
 * {

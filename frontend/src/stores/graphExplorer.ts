@@ -62,6 +62,7 @@ const INITIAL_REL_TYPES = new Set([
   "MANTEDORA_DE",
   "BENEFICIOU",
   "GEROU_CONVENIO",
+  "SAME_AS",
 ]);
 
 function initialState() {

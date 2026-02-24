@@ -29,6 +29,7 @@ export const relationshipColors: Record<string, string> = {
   MANTEDORA_DE: "#A855F7",
   BENEFICIOU: "#2DD4BF",
   GEROU_CONVENIO: "#2DD4BF",
+  SAME_AS: "#94a3b8",
 };
 
 export const semanticColors = {

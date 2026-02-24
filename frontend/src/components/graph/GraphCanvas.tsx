@@ -234,9 +234,9 @@ function GraphCanvasInner({
         const r = parseInt(hex.substring(0, 2), 16);
         const g = parseInt(hex.substring(2, 4), 16);
         const b = parseInt(hex.substring(4, 6), 16);
-        return `rgba(${r}, ${g}, ${b}, 0.5)`;
+        return `rgba(${r}, ${g}, ${b}, 0.7)`;
       }
-      return "rgba(148, 163, 154, 0.3)";
+      return "rgba(148, 163, 154, 0.5)";
     },
     [adjacentToHovered],
   );
@@ -313,18 +313,17 @@ function GraphCanvasInner({
       fittedRef.current = true;
       setTimeout(() => {
         fgRef.current?.zoomToFit(300, 50);
+        // Defer pause until after zoomToFit animation completes
+        setTimeout(() => fgRef.current?.pauseAnimation(), 350);
       }, 200);
+    } else {
+      fgRef.current?.pauseAnimation();
     }
-    // Pause animation loop once layout settles — stops RAF from burning CPU
-    fgRef.current?.pauseAnimation();
   }, []);
 
   // Cleanup: pause animation on unmount to stop RAF loop surviving navigation
   useEffect(() => {
-    const fg = fgRef.current;
-    return () => {
-      fg?.pauseAnimation();
-    };
+    return () => { fgRef.current?.pauseAnimation(); };
   }, []);
 
   // Stable canvas render callback — avoids ForceGraph2D re-initializing render pipeline

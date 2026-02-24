@@ -106,7 +106,7 @@ function InsightsContent({
             <div className={styles.factors}>
               {exposure.factors.map((f) => (
                 <div key={f.name} className={styles.factor}>
-                  <span className={styles.factorLabel}>{f.name}</span>
+                  <span className={styles.factorLabel}>{t(`analysis.factor.${f.name}`, f.name)}</span>
                   <div className={styles.factorTrack}>
                     <div
                       className={styles.factorFill}
